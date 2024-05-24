@@ -71,12 +71,31 @@ const List = () => (
 </ul>
 );
 
-const Search = () => (
-  <div>
-    <label htmlFor="search">Search: </label>
-      <input id="search" type="text"/>
-      </div>
-);
+const Search =() => {
+
+  const handleChange = (event) => {
+    console.log(event);
+    console.log(event.target.value);
+  };
+
+  const handleBlur = (event) => {
+    console.log(event);
+    console.log(event.target.value);
+  };
+
+  const handleClick = (input) => {
+    console.log('Button click');
+    console.log(input);
+  };
+
+  return (
+    <div>
+      <label htmlFor="search">Search: </label>
+      <input id="search" type="text" onChange={handleChange} onBlur={handleBlur}/>
+      <button id="button1" type="button" onClick={()=>handleClick('test')}>Event handler</button>
+    </div>
+  )
+};
 
 
 export default App
