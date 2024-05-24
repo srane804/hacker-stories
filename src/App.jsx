@@ -43,8 +43,7 @@ const list = [
 const numbers = [0,1,2,3,4];
 const initialValue = 0;
 
-function App() {
-
+const App = () => {
   return (
     <div>
       <h1>My hacker stories</h1>
@@ -58,32 +57,31 @@ function App() {
       <List/>
     </div>
   )
-}
+};
 
-function List(){
+const List = () => {
   return (
-  <ul>
-  {list.map(function (item){
-      return <li key={item.objectId}>
+    <ul>
+      {list.map((item) => {
+        return <li key={item.objectId}>
         <span>
         <a href={item.url}>{item.title}</a>
         </span>
         <span>{item.author}</span>,
         <span>{item.num_comments}</span>
         </li>
-  })}
-</ul>
-  );
-}
+      })}
+  </ul>
+    );
+};
 
-function Search()
-{
+const Search = () => {
   return (
     <div>
     <label htmlFor="search">Search: </label>
       <input id="search" type="text"/>
       </div>
   );
-}
+};
 
 export default App
