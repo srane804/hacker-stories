@@ -48,29 +48,42 @@ function App() {
   return (
     <div>
       <h1>My hacker stories</h1>
-
-      <label htmlFor="search">Search: </label>
-      <input id="search" type="text"/>
       <hr/>
-
-      <ul>
-        {list.map(function (item){
-            return <li key={item.objectId}>
-              <span>
-              <a href={item.url}>{item.title}</a>
-              </span>
-              <span>{item.author}</span>,
-              <span>{item.num_comments}</span>
-              </li>
-        })}
-      </ul>
-
+      <Search/>
       <div>
         {/*reduce method */}
         <h1>{numbers.reduce((accumulator, currentValue)=>accumulator+currentValue, initialValue)}</h1>       
       </div>
+
+      <List/>
     </div>
   )
+}
+
+function List(){
+  return (
+  <ul>
+  {list.map(function (item){
+      return <li key={item.objectId}>
+        <span>
+        <a href={item.url}>{item.title}</a>
+        </span>
+        <span>{item.author}</span>,
+        <span>{item.num_comments}</span>
+        </li>
+  })}
+</ul>
+  );
+}
+
+function Search()
+{
+  return (
+    <div>
+    <label htmlFor="search">Search: </label>
+      <input id="search" type="text"/>
+      </div>
+  );
 }
 
 export default App
