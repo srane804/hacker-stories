@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -17,9 +17,19 @@ const initialValue = 0;
 
 const App = () => {
 
+  console.log('App renders');
   const greeting = {
     title: "Hello Saurabh",
     description: "This is a greeting for Saurabh"
+  };
+
+  const [count, setCount] = React.useState(0);
+  const handleIncrease = () => {
+    setCount(count + 1);
+  };
+
+  const handleDecrease = () => {
+    setCount(count - 1);
   };
 
   const stories = [
@@ -67,6 +77,10 @@ const App = () => {
       <Greeting2 {...greeting}></Greeting2>
 
       <Greeting3 title={greeting.title} description={greeting.description}></Greeting3>
+
+      <button type='button' onClick={handleIncrease}>Increase count</button>
+      <button type='button' onClick={handleDecrease}>Decrease count</button>
+      Count : {count}
     </div>
   )
 };
@@ -92,13 +106,14 @@ const Greeting3 = ({title, description}) => (
   </div>
 );
 
-const List = (props) => (
+const List = (props) => {
+  console.log('List renders');
   <ul>
     {props.list.map((item) => (
       <Item key={item.objectId} item={item}></Item>
     ))}
   </ul>
-);
+};
 
 const Item = (props) => (
   <li>
@@ -112,25 +127,24 @@ const Item = (props) => (
 
 const Search = () => {
 
+  console.log('Search renders');
+  const [searchTerm, setSearchTerm] = React.useState('');
+
   const handleChange = (event) => {
-    console.log(event);
-    console.log(event.target.value);
+    setSearchTerm(event.target.value);
   };
 
   const handleBlur = (event) => {
-    console.log(event);
-    console.log(event.target.value);
   };
 
   const handleClick = (input) => {
-    console.log('Button click');
-    console.log(input);
   };
 
   return (
     <div>
       <label htmlFor="search">Search: </label>
       <input id="search" type="text" onChange={handleChange} onBlur={handleBlur} />
+      <p>Searching for <strong> {searchTerm} </strong></p>
       <button id="button1" type="button" onClick={() => handleClick('test')}>Event handler</button>
     </div>
   )
