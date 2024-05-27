@@ -14,23 +14,11 @@ function getTitle() {
 
 const numbers = [0, 1, 2, 3, 4];
 const initialValue = 0;
+const searchTerm = '';
 
 const App = () => {
 
   console.log('App renders');
-  const greeting = {
-    title: "Hello Saurabh",
-    description: "This is a greeting for Saurabh"
-  };
-
-  const [count, setCount] = React.useState(0);
-  const handleIncrease = () => {
-    setCount(count + 1);
-  };
-
-  const handleDecrease = () => {
-    setCount(count - 1);
-  };
 
   const stories = [
     {
@@ -59,20 +47,45 @@ const App = () => {
     }
   ]
 
+  const greeting = {
+    title: "Hello Saurabh",
+    description: "This is a greeting for Saurabh"
+  };
+
+  const [count, setCount] = React.useState(0);
+  const [searchTerm, setSearchTerm] = React.useState('');
+
+  const handleIncrease = () => {
+    setCount(count + 1);
+  };
+
+  const handleDecrease = () => {
+    setCount(count - 1);
+  };
+
+  const handleSearch = (event) => {
+    console.log(event.target.value);
+    setSearchTerm(event.target.value);
+  }
+
+  {/*const searchedStories = stories.filter(function (story) {
+    return story.title.includes(searchTerm);
+  });*/}
+
   return (
     <div>
       <h1>My hacker stories</h1>
       <hr />
-      <Search />
+      <Search onSearch={handleSearch} searchTerm={searchTerm} />
       <div>
         {/*reduce method */}
         <h1>{numbers.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue)}</h1>
       </div>
 
-      <List list={stories} />
+      <List list={stories} filter={searchTerm} />
       <Greeting detail={greeting}></Greeting>
-      <Greeting detail={{title:"Hi Saurabh, Welcome", description:"Saurabh's greeting"}}></Greeting>
-      
+      <Greeting detail={{ title: "Hi Saurabh, Welcome", description: "Saurabh's greeting" }}></Greeting>
+
       {/*Spread props*/}
       <Greeting2 {...greeting}></Greeting2>
 
@@ -85,57 +98,34 @@ const App = () => {
   )
 };
 
-const Greeting = (props) => (
-  <div>
-    <h2>{props.detail.title}</h2>
-    <h2>{props.detail.description}</h2>
-  </div>
-);
-
-const Greeting2 = ({title, description}) => (
-  <div>
-    <h2>{title}</h2>
-    <h2>{description}</h2>
-  </div>
-);
-
-const Greeting3 = ({title, description}) => (
-  <div>
-    <h2>{title}</h2>
-    <h2>{description}</h2>
-  </div>
-);
-
 const List = (props) => {
   console.log('List renders');
-  <ul>
-    {props.list.map((item) => (
-      <Item key={item.objectId} item={item}></Item>
-    ))}
-  </ul>
+  return (
+    <ul>
+      {props.list.map((item) => (
+        <Item key={item.objectId} item={item} filter={props.filter}></Item>
+      ))}
+    </ul>
+  );
 };
 
-const Item = (props) => (
-  <li>
-    <span>
-      <a href={props.item.url}>{props.item.title}</a>
-    </span>
-    <span>{props.item.author}</span>,
-    <span>{props.item.num_comments}</span>
-  </li>
-);
+const Item = (props) => {
+  if (props.filter =='' || props.item.title.includes(props.filter))
+    return (
+      <li>
+        <span>
+          <a href={props.item.url}>{props.item.title}</a>
+        </span>
+        <span>{props.item.author}</span>,
+        <span>{props.item.num_comments}</span>
+      </li>
+    )
+}
 
-const Search = () => {
+
+const Search = (props) => {
 
   console.log('Search renders');
-  const [searchTerm, setSearchTerm] = React.useState('');
-
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  const handleBlur = (event) => {
-  };
 
   const handleClick = (input) => {
   };
@@ -143,12 +133,32 @@ const Search = () => {
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input id="search" type="text" onChange={handleChange} onBlur={handleBlur} />
-      <p>Searching for <strong> {searchTerm} </strong></p>
+      <input id="search" type="text" onChange={props.onSearch} />
+      <p>Searching for <strong> {props.searchTerm} </strong></p>
       <button id="button1" type="button" onClick={() => handleClick('test')}>Event handler</button>
     </div>
   )
 };
 
+const Greeting = (props) => (
+  <div>
+    <h2>{props.detail.title}</h2>
+    <h2>{props.detail.description}</h2>
+  </div>
+);
+
+const Greeting2 = ({ title, description }) => (
+  <div>
+    <h2>{title}</h2>
+    <h2>{description}</h2>
+  </div>
+);
+
+const Greeting3 = ({ title, description }) => (
+  <div>
+    <h2>{title}</h2>
+    <h2>{description}</h2>
+  </div>
+);
 
 export default App
