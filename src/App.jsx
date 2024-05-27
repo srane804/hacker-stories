@@ -68,9 +68,9 @@ const App = () => {
     setSearchTerm(event.target.value);
   }
 
-  {/*const searchedStories = stories.filter(function (story) {
-    return story.title.includes(searchTerm);
-  });*/}
+  const searchedStories = stories.filter(function (story) {
+    return story.title.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   return (
     <div>
@@ -82,7 +82,7 @@ const App = () => {
         <h1>{numbers.reduce((accumulator, currentValue) => accumulator + currentValue, initialValue)}</h1>
       </div>
 
-      <List list={stories} filter={searchTerm} />
+      <List list={searchedStories} />
       <Greeting detail={greeting}></Greeting>
       <Greeting detail={{ title: "Hi Saurabh, Welcome", description: "Saurabh's greeting" }}></Greeting>
 
@@ -103,25 +103,21 @@ const List = (props) => {
   return (
     <ul>
       {props.list.map((item) => (
-        <Item key={item.objectId} item={item} filter={props.filter}></Item>
+        <Item key={item.objectId} item={item}></Item>
       ))}
     </ul>
   );
 };
 
-const Item = (props) => {
-  if (props.filter =='' || props.item.title.includes(props.filter))
-    return (
-      <li>
-        <span>
-          <a href={props.item.url}>{props.item.title}</a>
-        </span>
-        <span>{props.item.author}</span>,
-        <span>{props.item.num_comments}</span>
-      </li>
-    )
-}
-
+const Item = (props) => (
+  <li>
+    <span>
+      <a href={props.item.url}>{props.item.title}</a>
+    </span>
+    <span>{props.item.author}</span>,
+    <span>{props.item.num_comments}</span>
+  </li>
+)
 
 const Search = (props) => {
 
