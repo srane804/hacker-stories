@@ -102,21 +102,14 @@ const List = ({ list }) => {
   console.log('List renders');
   return (
     <ul>
-      {list.map((item) => (
-        <Item key={item.objectId} item={item}></Item>
+      {list.map(({objectId, ...item}) => (
+        <Item key={objectId} {...item}></Item>
       ))}
     </ul>
   );
 };
 
-const Item = ({
-  item: {
-    title,
-    url,
-    author,
-    num_comments
-  }
-}) => (
+const Item = ({title, url, author, num_comments}) => (
   <li>
     <span>
       <a href={url}>{title}</a>
