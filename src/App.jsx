@@ -98,7 +98,7 @@ const App = () => {
   )
 };
 
-const List = ({list}) => {
+const List = ({ list }) => {
   console.log('List renders');
   return (
     <ul>
@@ -109,17 +109,24 @@ const List = ({list}) => {
   );
 };
 
-const Item = ({item}) => (
+const Item = ({
+  item: {
+    title,
+    url,
+    author,
+    num_comments
+  }
+}) => (
   <li>
     <span>
-      <a href={item.url}>{item.title}</a>
+      <a href={url}>{title}</a>
     </span>
-    <span>{item.author}</span>,
-    <span>{item.num_comments}</span>
+    <span>{author}</span>,
+    <span>{num_comments}</span>
   </li>
 )
 
-const Search = ({onSearch, searchTerm}) => {
+const Search = ({ onSearch, searchTerm }) => {
 
   console.log('Search renders');
 
@@ -136,7 +143,7 @@ const Search = ({onSearch, searchTerm}) => {
   )
 };
 
-const Greeting = ({detail}) => (
+const Greeting = ({ detail }) => (
   <div>
     <h2>{detail.title}</h2>
     <h2>{detail.description}</h2>
