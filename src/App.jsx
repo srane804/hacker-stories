@@ -53,7 +53,7 @@ const App = () => {
   };
 
   const [count, setCount] = React.useState(0);
-  const [searchTerm, setSearchTerm] = React.useState('');
+  const [searchTerm, setSearchTerm] = React.useState('React');
 
   const handleIncrease = () => {
     setCount(count + 1);
@@ -129,7 +129,7 @@ const Search = (props) => {
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input id="search" type="text" onChange={props.onSearch} />
+      <input id="search" type="text" onChange={props.onSearch} value={props.searchTerm} />
       <p>Searching for <strong> {props.searchTerm} </strong></p>
       <button id="button1" type="button" onClick={() => handleClick('test')}>Event handler</button>
     </div>
