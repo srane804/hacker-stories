@@ -98,28 +98,28 @@ const App = () => {
   )
 };
 
-const List = (props) => {
+const List = ({list}) => {
   console.log('List renders');
   return (
     <ul>
-      {props.list.map((item) => (
+      {list.map((item) => (
         <Item key={item.objectId} item={item}></Item>
       ))}
     </ul>
   );
 };
 
-const Item = (props) => (
+const Item = ({item}) => (
   <li>
     <span>
-      <a href={props.item.url}>{props.item.title}</a>
+      <a href={item.url}>{item.title}</a>
     </span>
-    <span>{props.item.author}</span>,
-    <span>{props.item.num_comments}</span>
+    <span>{item.author}</span>,
+    <span>{item.num_comments}</span>
   </li>
 )
 
-const Search = (props) => {
+const Search = ({onSearch, searchTerm}) => {
 
   console.log('Search renders');
 
@@ -129,17 +129,17 @@ const Search = (props) => {
   return (
     <div>
       <label htmlFor="search">Search: </label>
-      <input id="search" type="text" onChange={props.onSearch} value={props.searchTerm} />
-      <p>Searching for <strong> {props.searchTerm} </strong></p>
+      <input id="search" type="text" onChange={onSearch} value={searchTerm} />
+      <p>Searching for <strong> {searchTerm} </strong></p>
       <button id="button1" type="button" onClick={() => handleClick('test')}>Event handler</button>
     </div>
   )
 };
 
-const Greeting = (props) => (
+const Greeting = ({detail}) => (
   <div>
-    <h2>{props.detail.title}</h2>
-    <h2>{props.detail.description}</h2>
+    <h2>{detail.title}</h2>
+    <h2>{detail.description}</h2>
   </div>
 );
 
