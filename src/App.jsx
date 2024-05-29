@@ -53,13 +53,7 @@ const App = () => {
   };
 
   const [count, setCount] = React.useState(0);
-  const [searchTerm, setSearchTerm] = React.useState(
-    localStorage.getItem('search') || 'React'
-  );
-
-  React.useEffect(()=>{
-    localStorage.setItem('search',searchTerm)
-  }, [searchTerm]);
+  const [searchTerm, setSearchTerm] = useStorageState('search','React');
 
   const handleIncrease = () => {
     setCount(count + 1);
@@ -102,6 +96,19 @@ const App = () => {
       Count : {count}
     </div>
   )
+};
+
+const useStorageState = (key, initialValue) => {
+  const [value, setValue] = React.useState(
+    localStorage.getItem(key) || initialValue
+  );
+
+  React.useEffect(()=>{
+    localStorage.setItem(key,value)
+  }, [key, value]);
+
+  return [value, setValue];
+
 };
 
 const List = ({ list }) => {
