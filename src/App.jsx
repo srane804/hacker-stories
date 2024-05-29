@@ -53,7 +53,13 @@ const App = () => {
   };
 
   const [count, setCount] = React.useState(0);
-  const [searchTerm, setSearchTerm] = React.useState('React');
+  const [searchTerm, setSearchTerm] = React.useState(
+    localStorage.getItem('search') || 'React'
+  );
+
+  React.useEffect(()=>{
+    localStorage.setItem('search',searchTerm)
+  }, [searchTerm]);
 
   const handleIncrease = () => {
     setCount(count + 1);
@@ -64,8 +70,8 @@ const App = () => {
   };
 
   const handleSearch = (event) => {
-    console.log(event.target.value);
     setSearchTerm(event.target.value);
+    localStorage.setItem('search',event.target.value);
   }
 
   const searchedStories = stories.filter(function (story) {
